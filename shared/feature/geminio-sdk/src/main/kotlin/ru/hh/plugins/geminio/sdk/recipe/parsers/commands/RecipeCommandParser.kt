@@ -13,6 +13,8 @@ private const val KEY_COMMAND_ADD_DEPENDENCIES = "addDependencies"
 private const val KEY_MK_DIRS = "mkDirs"
 private const val KEY_COMMAND_ADD_GRADLE_PLUGINS = "addGradlePlugins"
 private const val KEY_COMMAND_ADD_DAGGER_MODULE = "addDaggerModule"
+private const val KEY_COMMAND_ADD_VIEW_MODEL_FACTORY_TO_DAGGER_MODULE =
+    "addViewModelFactoryToDaggerModule"
 
 /**
  * Parser from YAML to [ru.hh.plugins.geminio.sdk.recipe.models.commands.RecipeCommand]
@@ -26,6 +28,8 @@ internal fun Map<String, Any>.toRecipeCommand(sectionName: String): RecipeComman
     val mkDirsCommandList = this[KEY_MK_DIRS] as? List<Any>
     val addGradlePluginsCommandList = this[KEY_COMMAND_ADD_GRADLE_PLUGINS] as? List<String>
     val addDaggerModule = this[KEY_COMMAND_ADD_DAGGER_MODULE] as? Map<String, Any>
+    val addViewModelFactoryInDaggerModule =
+        this[KEY_COMMAND_ADD_VIEW_MODEL_FACTORY_TO_DAGGER_MODULE] as? Map<String, Any>
 
     return when {
         instantiateCommandMap != null -> {
@@ -55,9 +59,15 @@ internal fun Map<String, Any>.toRecipeCommand(sectionName: String): RecipeComman
         addGradlePluginsCommandList != null -> {
             addGradlePluginsCommandList.toAddGradlePluginsCommand("$sectionName:$KEY_COMMAND_ADD_GRADLE_PLUGINS")
         }
+
         addDaggerModule != null -> {
             addDaggerModule.toAddDaggerCommand("$sectionName:$KEY_COMMAND_ADD_DAGGER_MODULE")
         }
+
+        addViewModelFactoryInDaggerModule != null -> {
+            addViewModelFactoryInDaggerModule.toAddViewModelFactoryToDaggerModule("$sectionName:$KEY_COMMAND_ADD_VIEW_MODEL_FACTORY_TO_DAGGER_MODULE")
+        }
+
         else -> {
             throw IllegalArgumentException(
                 sectionUnknownEnumKeyErrorMessage(
@@ -71,7 +81,8 @@ internal fun Map<String, Any>.toRecipeCommand(sectionName: String): RecipeComman
                         KEY_COMMAND_ADD_DEPENDENCIES,
                         KEY_MK_DIRS,
                         KEY_COMMAND_ADD_GRADLE_PLUGINS,
-                        KEY_COMMAND_ADD_DAGGER_MODULE
+                        KEY_COMMAND_ADD_DAGGER_MODULE,
+                        KEY_COMMAND_ADD_VIEW_MODEL_FACTORY_TO_DAGGER_MODULE
                     ).joinToString { "'$it'" }
                 )
             )

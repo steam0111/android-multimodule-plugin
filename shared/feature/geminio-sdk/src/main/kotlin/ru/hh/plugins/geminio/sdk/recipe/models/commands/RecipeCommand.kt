@@ -39,6 +39,13 @@ sealed class RecipeCommand {
         val featureModuleName: RecipeExpression
     ) : RecipeCommand()
 
+    data class AddViewModelFactoryToDaggerModule(
+        val featureName: RecipeExpression,
+        val componentPath: RecipeExpression,
+        val componentName: RecipeExpression,
+        val featurePackage: RecipeExpression
+    ) : RecipeCommand()
+
     /**
      * Command which will be executed only if [validIf] predicate returns true.
      * If [validIf] returns false, try to execute [elseCommands].
