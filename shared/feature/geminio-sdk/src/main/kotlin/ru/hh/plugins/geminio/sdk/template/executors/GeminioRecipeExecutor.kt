@@ -52,5 +52,11 @@ private fun RecipeCommand.execute(
             this,
             executorData
         )
+
+        is RecipeCommand.AddViewModelFactoryToDaggerModule -> recipeExecutor.execute(
+            targetDirectory,
+            this,
+            executorData
+        )
     }.exhaustive
 }
