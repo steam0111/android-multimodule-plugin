@@ -58,5 +58,11 @@ private fun RecipeCommand.execute(
             this,
             executorData
         )
+
+        is RecipeCommand.AddNavigation -> recipeExecutor.execute(
+            targetDirectory,
+            this,
+            executorData
+        )
     }.exhaustive
 }

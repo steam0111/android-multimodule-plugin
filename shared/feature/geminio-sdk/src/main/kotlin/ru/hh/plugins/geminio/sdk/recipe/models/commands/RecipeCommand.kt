@@ -46,6 +46,17 @@ sealed class RecipeCommand {
         val featurePackage: RecipeExpression
     ) : RecipeCommand()
 
+    data class AddNavigation(
+        val srcOut: RecipeExpression,
+        val featureName: RecipeExpression,
+        val featureModuleName: RecipeExpression,
+        val featurePackageName: RecipeExpression,
+        val featureFlowName: RecipeExpression,
+        val innerRouterName: RecipeExpression,
+        val containerName: RecipeExpression,
+        val fragmentName: RecipeExpression
+    ) : RecipeCommand()
+
     /**
      * Command which will be executed only if [validIf] predicate returns true.
      * If [validIf] returns false, try to execute [elseCommands].

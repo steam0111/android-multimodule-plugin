@@ -13,6 +13,7 @@ private const val KEY_COMMAND_ADD_DEPENDENCIES = "addDependencies"
 private const val KEY_MK_DIRS = "mkDirs"
 private const val KEY_COMMAND_ADD_GRADLE_PLUGINS = "addGradlePlugins"
 private const val KEY_COMMAND_ADD_DAGGER_MODULE = "addDaggerModule"
+private const val KEY_COMMAND_ADD_NAVIGATION = "addNavigation"
 private const val KEY_COMMAND_ADD_VIEW_MODEL_FACTORY_TO_DAGGER_MODULE =
     "addViewModelFactoryToDaggerModule"
 
@@ -28,6 +29,7 @@ internal fun Map<String, Any>.toRecipeCommand(sectionName: String): RecipeComman
     val mkDirsCommandList = this[KEY_MK_DIRS] as? List<Any>
     val addGradlePluginsCommandList = this[KEY_COMMAND_ADD_GRADLE_PLUGINS] as? List<String>
     val addDaggerModule = this[KEY_COMMAND_ADD_DAGGER_MODULE] as? Map<String, Any>
+    val addNavigation = this[KEY_COMMAND_ADD_NAVIGATION] as? Map<String, Any>
     val addViewModelFactoryInDaggerModule =
         this[KEY_COMMAND_ADD_VIEW_MODEL_FACTORY_TO_DAGGER_MODULE] as? Map<String, Any>
 
@@ -66,6 +68,10 @@ internal fun Map<String, Any>.toRecipeCommand(sectionName: String): RecipeComman
 
         addViewModelFactoryInDaggerModule != null -> {
             addViewModelFactoryInDaggerModule.toAddViewModelFactoryToDaggerModule("$sectionName:$KEY_COMMAND_ADD_VIEW_MODEL_FACTORY_TO_DAGGER_MODULE")
+        }
+
+        addNavigation != null -> {
+            addNavigation.toAddNavigationCommand("$sectionName:$KEY_COMMAND_ADD_NAVIGATION")
         }
 
         else -> {
